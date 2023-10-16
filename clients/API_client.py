@@ -20,7 +20,20 @@ class APIClient:
         response = self.session.post(url, data=data, json=json, **kwargs)
         return response
     
-    # add PUT, DELETE and PATCH
+    def put(self, endpoint, data=None, json=None, **kwargs):
+        url = self._full_url(endpoint)
+        response = self.session.put(url, data=data, json=json, **kwargs)
+        return response
+
+    def patch(self, endpoint, data=None, json=None, **kwargs):
+        url = self._full_url(endpoint)
+        response = self.session.patch(url, data=data, json=json, **kwargs)
+        return response
+
+    def delete(self, endpoint, **kwargs):
+        url = self._full_url(endpoint)
+        response = self.session.delete(url, **kwargs)
+        return response
     
     def _full_url(self, endpoint): 
         return self.base_url.rstrip("/") + "/" + endpoint.lstrip("/")
