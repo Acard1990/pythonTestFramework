@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
 
 class LoginPage:
     
@@ -9,8 +10,8 @@ class LoginPage:
         self.login_button = (By.ID, "log-in")
         self.auth_header = (By.CLASS_NAME, "auth-header")
 
-    def navigateToLogin(self):
-        self.driver.get('https://demo.applitools.com/')
+    # def navigateToLogin(self):
+    #     self.driver.get('https://demo.applitools.com/')
 
     def enter_username(self, username):
         self.driver.find_element(*self.username_input).send_keys(username)
@@ -26,5 +27,12 @@ class LoginPage:
         self.enter_password(password)
         self.click_login_button()
 
-    def getAuthHeaderVal(self):
-        self.driver.find_element(*self.auth_header.text)
+    def assertLoginWithHeaderElement(self):
+        try:
+            self.driver.find_element(*self.auth_header.text)
+            assert False, "The element should not exist, but it was found"
+        except NoSuchElementException:
+            assert True, "The element does not exist"
+
+
+

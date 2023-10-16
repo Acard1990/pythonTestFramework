@@ -10,7 +10,15 @@ def api_client():
     return client
 
 @pytest.fixture
-def driver():
+def nav_to_login():
     driver = webdriver.Chrome()
+    driver.get('https://demo.applitools.com/')
+    yield driver
+    driver.quit()
+
+@pytest.fixture
+def nav_to_home():
+    driver = webdriver.Chrome()
+    driver.get('https://demo.applitools.com/app.html')
     yield driver
     driver.quit()
